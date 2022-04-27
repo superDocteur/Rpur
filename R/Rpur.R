@@ -32,7 +32,7 @@ setClass("RPU",slots = c(
 ))
 
 rpu_table <- function(xml){
-  xml_list <- xmldoc %>% as_list
+  xml_list <- xml %>% as_list
   xml_df <- xml_list %>% as.tibble()  
 }
 
@@ -119,9 +119,9 @@ charge_rpu <- function(file,garde_xml=F,traite_diags=F,traite_actes=F) {
   rpu = new("RPU")
   
   xmldoc <- read_xml(file)
-  if (garde_xml){rpu@xml=xmldoc}
+  if (garde_xml){rpu@xml <- xmldoc}
   
-  rpu@PASSAGES = rpu_patients(xmldoc)
+  rpu@PASSAGES <- rpu_patients(xmldoc)
   
   if(traite_diags) {rpu@DIAGS = rpu@PASSAGES %>% extrait_Diags()}
   if(traite_actes) {rpu@ACTES = rpu@PASSAGES %>% extrait_Actes()}
