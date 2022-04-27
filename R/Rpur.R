@@ -8,7 +8,7 @@ library(tidyverse)
 #' Classe "mal" utilisée pour le moment
 #' Sert à stocker les RPU dans 1 unifié
 #' 
-#' @slot PASSAGES data.frame . 
+#' @slot PASSAGES data.frame. 
 #' @slot FINESS character. 
 #' @slot DDEBUT Date de début du fichier. 
 #' @slot DFIN Date de fin du fichier. 
@@ -20,7 +20,7 @@ library(tidyverse)
 #' @export
 #'
 #' @examples
-setClass("RPU",slots = c(
+setClass("RPU", slots = c(
   xml       = "xml_document",
   PASSAGES  = "data.frame",
   ACTES     = "data.frame",
@@ -116,15 +116,15 @@ extrait_Actes <- function(x) {
 }
 
 charge_rpu <- function(file,garde_xml=F,traite_diags=F,traite_actes=F) {
-  rpu = new("RPU")
+  rpu <- new("RPU")
   
   xmldoc <- read_xml(file)
   if (garde_xml){rpu@xml <- xmldoc}
   
   rpu@PASSAGES <- rpu_patients(xmldoc)
   
-  if(traite_diags) {rpu@DIAGS = rpu@PASSAGES %>% extrait_Diags()}
+  if(traite_diags) rpu@DIAGS = rpu@PASSAGES %>% extrait_Diags()
   if(traite_actes) {rpu@ACTES = rpu@PASSAGES %>% extrait_Actes()}
-  
+
   rpu
 }
